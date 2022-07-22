@@ -1,0 +1,158 @@
+DB 
+Manipulate DATA
+
+INSERT INTO EmployeeDemographics VALUES
+
+(1001, 'Pam', 'Beasley',30,'Male'),
+(1002, 'Dwight', 'Schrute',29,'Male'),
+(1003, 'Angela','Martin',31,'Female'),
+(1004, 'Toby', 'Flenderson',32,'Male'),
+(1005, 'Michael', 'Scott',35,'Male'),
+(1006, 'Meredith', 'Palmer',32,'Female'),
+(1007, 'Stanley', 'Hudson',38,'Male'),
+(1008, 'Kevin', 'Malone',31,'Male')
+
+
+INSERT INTO EmployeeSalary VAlUES
+(1001, ' Salesman',45000),
+(1002, ' Receptionist',36000),
+(1003, ' Salesman',63000),
+(1004, ' Accountant',47000),
+(1005, ' HR',50000),
+(1006, ' Regional Menager',65000),
+(1007, ' Supplier Relations',41000),
+(1008, ' Salesman',48000),
+(1009, ' Accountant',42000)
+
+
+/*
+Select Statement
+*, Top,Distince,Count,As,Max,Min,Avg
+Top gorne rekordy , konkretne unikalne wartosci , zliczanie  , as to nazywanie wyniku tabeli po select'ie ,
+ maksymalny,minimalny, avg average- przecietny srednia z rekordow
+*/
+
+
+SELECT FirstName,LastName
+FROM EmployeeDemographics
+SELECT *
+FROM EmployeeDemographics
+SELECT TOP 5 *
+FROM EmployeeDemographics
+SELECT DISTINCT(Gender) 
+FROM EmployeeDemographics
+SELECT COUNT(LastName)
+FROM EmployeeDemographics
+SELECT MAX(Salary)
+FROM EmployeeSalary
+SELECT MAX(Salary)
+FROM EmployeeSalary
+SELECT AVG(Salary)
+FROM EmployeeSalary
+/*
+Select Statement
+*, 
+Change Sql tutorial as master and give table records to it
+*/
+SELECT *
+FROM SQLTutorial.dbo.EmployeeSalary
+
+
+/*
+Where Statement
+=, <>, <, >, And, Or, Like ,Null ,Not Null, In
+rowne,nie rowne ,mniejsze wieksze,
+i ,lub,jak przyrownanie like nizej,
+Null zwraca elementy z lub bez wartosci,
+
+
+*/
+SELECT *
+FROM EmployeeDemographics
+WHERE FirstName = 'Jim'
+
+SELECT *
+FROM EmployeeDemographics
+WHERE FirstName <> 'Jim'
+
+SELECT *
+FROM EmployeeDemographics
+WHERE Age >= 30
+
+SELECT *
+FROM EmployeeDemographics
+WHERE Age <= 32 AND Gender= 'Male'SELECT *
+
+SELECT*
+FROM EmployeeDemographics
+WHERE LastName LIKE 'S%'
+/*
+Przyrownanie do pierwszej litery S,
+np %S% kazdy element ktory zawiera S
+*/
+SELECT *
+FROM EmployeeDemographics
+WHERE FirstName is NOT NULL
+FROM EmployeeDemographics
+WHERE FirstName IN('Jim','Michael')
+/*
+Dziala jak ponizej , rownie dla wielu rzeczy
+WHERE FirstName = 'Jim' AND FirstName = 'Michael'
+*/
+
+
+/*
+Group By, Order By
+Group By grupuje elementy 
+ORDER BY uklada w okreslonym porzadku
+DESC  dascende schodzi w dol
+*/
+SELECT Gender, Age,COUNT(Gender)
+FROM EmployeeDemographics
+GROUP BY Gender,Age
+
+SELECT Gender, COUNT(Gender) AS CountGender
+FROM EmployeeDemographics
+WHERE Age > 31
+GROUP BY Gender
+ORDER BY CountGender DESC
+
+FROM EmployeeDemographics
+ORDER BY Age DESC,Gender DESC
+/*
+SELECT*
+FROM EmployeeDemographics
+ORDER BY 4DESC, 5DESC
+ to to samo 4 i 5 columna
+*/
+
+
+/*
+Inner Joins , Full/Left/RIght Outer Joins
+Join (common part of the tables) czesc wspolna
+Left Outer Join (One table elements)
+Right Outer Joint(second table elements)
+Full Outer Joints (all tables elements)
+*/
+
+SELECT *
+FROM SQLTutorial.dbo.EmployeeDemographics
+Join SQLTutorial.dbo.EmployeeSalary
+ON EmployeeDemographics.EmployeeID = EmployeeSalary.EmployeeID
+
+SELECT EmployeeDemographics.EmployeeID, FirstName, JobTitle, Salary
+FROM SQLTutorial.dbo.EmployeeDemographics
+RIght Outer Join SQLTutorial.dbo.EmployeeSalary
+ON EmployeeDemographics.EmployeeID = EmployeeSalary.EmployeeID
+
+/*
+Use case
+*/
+
+SELECT EmployeeDemographics.EmployeeID, FirstName , LastName, Salary
+FROM SQLTutorial.dbo.EmployeeDemographics
+ Join SQLTutorial.dbo.EmployeeSalary
+ON EmployeeDemographics.EmployeeID = EmployeeSalary.EmployeeID
+WHERE FirstName <> 'Michael'
+ORDER BY Salary DESC
+
